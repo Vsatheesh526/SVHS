@@ -3,10 +3,10 @@
 --  Run with:  mysql -u root -p < schema.sql
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS school_db
+CREATE DATABASE IF NOT EXISTS railway
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE school_db;
+USE railway;
 
 -- ---- Users / auth -----------------------------------------
 CREATE TABLE IF NOT EXISTS users (
