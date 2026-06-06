@@ -16,11 +16,17 @@ dotenv.config();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
-const origins = (process.env.CORS_ORIGIN || "http://localhost:5173")
-  .split(",")
-  .map((s) => s.trim());
+// const origins = (process.env.CORS_ORIGIN || "http://localhost:5173")
+//   .split(",")
+//   .map((s) => s.trim());
 
-app.use(cors({ origin: origins }));
+app.use(cors({ 
+ origin: [
+    "http://localhost:5173",
+    "https://your-vercel-app.vercel.app"
+  ]
+
+ }));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
