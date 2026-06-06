@@ -6,18 +6,12 @@ import { fileURLToPath } from "url";
 
 dotenv.config();
 
-const DB_HOST = process.env.DB_HOST || "localhost";
-const DB_PORT = Number(process.env.DB_PORT) || 3306;
-const DB_USER = process.env.DB_USER || "root";
-const DB_PASSWORD = process.env.DB_PASSWORD || "";
-const DB_NAME = process.env.DB_NAME || "school_db";
+// ✅ Use DATABASE_URL (Railway)
+const DATABASE_URL = process.env.DATABASE_URL;
 
+// ✅ Create connection pool
 export const pool = mysql.createPool({
-  host: DB_HOST,
-  port: DB_PORT,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME,
+  uri: DATABASE_URL,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -25,36 +19,50 @@ export const pool = mysql.createPool({
   multipleStatements: true,
 });
 
+// ✅ Query helper
 export async function query(sql, params = []) {
   const [rows] = await pool.execute(sql, params);
   return rows;
 }
 
+// ✅ Initialize DB (runs schema.sql)
 export async function initializeDatabase() {
-  const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const schemaPath = path.join(__dirname, "../schema.sql");
-  const schema = await fs.promises.readFile(schemaPath, "utf8");
+  try {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const schemaPath = path.join(__dirname, "../schema.sql");
 
-  const initConnection = await mysql.createConnection({
-    host: DB_HOST,
-    port: DB_PORT,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    multipleStatements: true,
-  });
+    const schema = await fs.promises.readFile(schemaPath, "utf8");
 
-  await initConnection.query(schema);
+    // ✅ Connect using DATABASE_URL
+    const initConnection = await mysql.createConnection(DATABASE_URL);
 
-  const [columns] = await initConnection.query(
-    "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME = ?",
-    [DB_NAME, "admission_requests", "status"]
-  );
+    // Run schema
+    await initConnection.query(schema);
 
-  if (columns.length === 0) {
-    await initConnection.query(
-      "ALTER TABLE admission_requests ADD COLUMN status VARCHAR(50) NOT NULL DEFAULT 'pending'"
+    // Check if column exists
+    const [columns] = await initConnection.query(
+      `SELECT COLUMN_NAME 
+       FROM INFORMATION_SCHEMA.COLUMNS 
+       WHERE TABLE_SCHEMA = ? 
+       AND TABLE_NAME = ? 
+       AND COLUMN_NAME = ?`,
+      ["railway", "admission_requests", "status"]
     );
-  }
 
-  await initConnection.end();
+    // Add column if missing
+    if (columns.length === 0) {
+      await initConnection.query(
+        `ALTER TABLE admission_requests 
+         ADD COLUMN status VARCHAR(50) 
+         NOT NULL DEFAULT 'pending'`
+      );
+    }
+
+    await initConnection.end();
+
+    console.log("Database initialized ✅");
+  } catch (err) {
+    console.error("DB Init Error ❌:", err);
+  }
 }
+
