@@ -23,7 +23,8 @@ const app = express();
 app.use(cors({ 
  origin: [
     "http://localhost:5173",
-    "https://svhs-cqrqa66q1-vsatheesh526s-projects.vercel.app"
+    "https://svhs-cqrqa66q1-vsatheesh526s-projects.vercel.app",
+    "https://svhs-bcm6w0v7m-vsatheesh526s-projects.vercel.app"
   ]
 
  }));
