@@ -8,7 +8,7 @@ export default function StaffCard({ person }) {
   const subtitle = person.subject ? `${person.role} • ${person.subject}` : person.role;
 
   return (
-    <div className="card overflow-hidden  hover:shadow-xl">
+    <div className="card overflow-hidden  ">
       <div className="relative h-56 overflow-hidden ">
         <img
           src={person.image_url || FALLBACK}
