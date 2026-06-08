@@ -8,13 +8,13 @@
 
 
 
-import { defineConfig } from 'vite'
-import sitemap from 'vite-plugin-sitemap'
+// import { defineConfig } from 'vite'
+// import sitemap from 'vite-plugin-sitemap'
 
-export default defineConfig({
-  plugins: [
-    sitemap({
-      hostname: 'https://svhs-git-main-vsatheesh526s-projects.vercel.app'
-    })
-  ]
-});
+// export default defineConfig({
+//   plugins: [
+//     sitemap({
+//       hostname: 'https://svhs-git-main-vsatheesh526s-projects.vercel.app'
+//     })
+//   ]
+// });
