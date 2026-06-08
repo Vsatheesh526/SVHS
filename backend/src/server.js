@@ -32,15 +32,17 @@ const app = express();
 
 
 
+const cors = require("cors");
+
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || origin.includes("vercel.app")) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  }
+  origin: [
+    "https://svhs-g6ak8n68d-vsatheesh526s-projects.vercel.app",
+    "https://svhs-git-main-vsatheesh526s-projects.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
+
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
