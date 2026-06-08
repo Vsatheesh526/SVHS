@@ -22,13 +22,25 @@ const app = express();
 //   .split(",")
 //   .map((s) => s.trim());
 
-app.use(cors({ 
- origin: [
-    "http://localhost:5173",
-    "https://svhs-g6ak8n68d-vsatheesh526s-projects.vercel.app/"
-  ]
+// app.use(cors({ 
+//  origin: [
+//     "http://localhost:5173",
+//     "https://svhs-g6ak8n68d-vsatheesh526s-projects.vercel.app/"
+//   ]
 
- }));
+//  }));
+
+
+
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || origin.includes("vercel.app")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+}));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
