@@ -7,7 +7,7 @@ import ResultCard from "../components/cards/ResultCard.jsx";
 import AutoScroller from "../components/AutoScroller.jsx";
 import ResultBanner from "../components/ResultBanner.jsx";
 
-const HERO = "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1920&q=80";
+const HERO = "https://png.pngtree.com/thumb_back/fh260/background/20250909/pngtree-group-of-children-reading-books-on-grass-outside-modern-school-building-image_19017971.webp";
 const ABOUT = "https://www.genesisglobalschool.edu.in/boarding-life/wp-content/uploads/sites/5/2025/01/Library-scaled.jpg";
 
 export default function Home() {
@@ -91,7 +91,7 @@ export default function Home() {
           </div>
           <div className="mt-12 grid w-full max-w-2xl grid-cols-2 gap-6 sm:grid-cols-4">
             {[
-              { icon: Users, value: "2,400+", label: "Students" },
+              { icon: Users, value: "500+", label: "Students" },
               { icon: GraduationCap, value: "98.4%", label: "Top Score" },
               { icon: Trophy, value: "120+", label: "Awards" },
               { icon: BookOpen, value: "25 yrs", label: "Legacy" },

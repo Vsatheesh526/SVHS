@@ -11,7 +11,9 @@ import admissionRequestsRoutes from "./routes/admissionRequests.js";
 import { crudRoute } from "./routes/crudRoute.js";
 import { initializeDatabase } from "./db.js";
 
-dotenv.config();
+
+dotenv.config({ path: "./.env" });
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();

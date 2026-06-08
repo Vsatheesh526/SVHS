@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { GraduationCap, Menu, X } from "lucide-react";
 import { useState } from "react";
 
+
 const links = [
   { to: "/", label: "Home" },
   { to: "/admissions", label: "Admissions" },
@@ -14,11 +15,13 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white backdrop-blur">
       <nav className="container-page flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-navy text-gold">
-            <GraduationCap className="h-5 w-5" />
+          <span className="bg-white ">
+            {/* <GraduationCap className="h-5 w-5" /> */}
+            <img src="/assets/logo.png" href="/" alt="Logo" className="h-10 w-10" />
+           
           </span>
           <span className="font-display text-lg font-bold text-navy">Sri Vidya E.M | T.M High School</span>
         </Link>

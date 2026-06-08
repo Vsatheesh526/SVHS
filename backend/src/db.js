@@ -9,6 +9,10 @@ dotenv.config();
 // ✅ Use DATABASE_URL (Railway)
 const DATABASE_URL = process.env.DATABASE_URL;
 
+
+console.log("DATABASE_URL =", process.env.DATABASE_URL);
+
+
 // ✅ Create connection pool
 export const pool = mysql.createPool({
   uri: DATABASE_URL,
@@ -65,4 +69,3 @@ export async function initializeDatabase() {
     console.error("DB Init Error ❌:", err);
   }
 }
-
